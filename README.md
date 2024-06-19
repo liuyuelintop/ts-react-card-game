@@ -330,3 +330,10 @@ body {
   padding: 0;
 }
 ```
+
+## ToDo
+
+1. [x] Flip Card
+2. [ ] 动画效果 (optional)
+   1. 发牌
+   2. 洗牌

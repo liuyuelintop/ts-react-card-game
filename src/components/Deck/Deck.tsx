@@ -8,15 +8,18 @@ import { NormalCard } from "../../types/types";
 const Deck: React.FC = () => {
   const [deck, setDeck] = useState<NormalCard[]>([]);
   const [flipped, setFlipped] = useState<boolean[]>([]);
+  const [minMark, setMinMark] = useState<number>(1);
+  const [maxMark, setMaxMark] = useState<number>(13);
+
   useEffect(() => {
     const newDeck = createDeck({
       includeJokers: false,
-      minMark: 1,
-      maxMark: 13,
+      minMark,
+      maxMark,
     });
     setDeck(newDeck);
     setFlipped(new Array(newDeck.length).fill(false));
-  }, []);
+  }, [minMark, maxMark]);
 
   const handleShuffle = () => {
     setDeck((prevDeck) => shuffleDeck(prevDeck));
@@ -38,6 +41,26 @@ const Deck: React.FC = () => {
 
   return (
     <div className="text-center">
+      <div className="mb-4">
+        <label className="mr-2">Min Mark:</label>
+        <input
+          type="number"
+          value={minMark}
+          onChange={(e) => setMinMark(Number(e.target.value))}
+          min="1"
+          max="13"
+          className="px-2 py-1 border rounded"
+        />
+        <label className="ml-4 mr-2">Max Mark:</label>
+        <input
+          type="number"
+          value={maxMark}
+          onChange={(e) => setMaxMark(Number(e.target.value))}
+          min="1"
+          max="13"
+          className="px-2 py-1 border rounded"
+        />
+      </div>
       <button
         onClick={handleShuffle}
         className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition"

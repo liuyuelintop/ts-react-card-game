@@ -1,78 +1,35 @@
 // src/components/Deck/Deck.tsx
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Card from "../Card/Card";
-import { createDeck, markToString, shuffleDeck } from "../../utils/deck";
+import DeckControls from "./DeckControls";
+import useDeck from "../../hooks/Deck/useDeck";
 import { NormalCard } from "../../types/types";
+import { markToString } from "../../utils/deck";
 
 const Deck: React.FC = () => {
-  const [deck, setDeck] = useState<NormalCard[]>([]);
-  const [flipped, setFlipped] = useState<boolean[]>([]);
   const [minMark, setMinMark] = useState<number>(1);
   const [maxMark, setMaxMark] = useState<number>(13);
+  const [includeJokers, setIncludeJokers] = useState<boolean>(false);
 
-  useEffect(() => {
-    const newDeck = createDeck({
-      includeJokers: false,
-      minMark,
-      maxMark,
-    });
-    setDeck(newDeck);
-    setFlipped(new Array(newDeck.length).fill(false));
-  }, [minMark, maxMark]);
-
-  const handleShuffle = () => {
-    setDeck((prevDeck) => shuffleDeck(prevDeck));
-    setFlipped(new Array(deck.length).fill(false));
-  };
-
-  const handleFlipAll = () => {
-    const allFlipped = flipped.every((state) => state);
-    setFlipped(new Array(deck.length).fill(!allFlipped));
-  };
-
-  const handleFlip = (index: number) => {
-    setFlipped((prevFlipped) => {
-      const newFlipped = [...prevFlipped];
-      newFlipped[index] = !newFlipped[index];
-      return newFlipped;
-    });
-  };
+  const { deck, flipped, handleShuffle, handleFlipAll, handleFlip } = useDeck(
+    minMark,
+    maxMark,
+    includeJokers
+  );
 
   return (
     <div className="text-center">
-      <div className="mb-4">
-        <label className="mr-2">Min Mark:</label>
-        <input
-          type="number"
-          value={minMark}
-          onChange={(e) => setMinMark(Number(e.target.value))}
-          min="1"
-          max="13"
-          className="px-2 py-1 border rounded"
-        />
-        <label className="ml-4 mr-2">Max Mark:</label>
-        <input
-          type="number"
-          value={maxMark}
-          onChange={(e) => setMaxMark(Number(e.target.value))}
-          min="1"
-          max="13"
-          className="px-2 py-1 border rounded"
-        />
-      </div>
-      <button
-        onClick={handleShuffle}
-        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition"
-      >
-        Shuffle Deck
-      </button>
-      <button
-        onClick={handleFlipAll}
-        className="mb-4 ml-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-700 transition"
-      >
-        Flip All
-      </button>
+      <DeckControls
+        minMark={minMark}
+        maxMark={maxMark}
+        includeJokers={includeJokers}
+        setMinMark={setMinMark}
+        setMaxMark={setMaxMark}
+        setIncludeJokers={setIncludeJokers}
+        handleShuffle={handleShuffle}
+        handleFlipAll={handleFlipAll}
+      />
       <div className="flex flex-wrap justify-center gap-2">
         {deck.map((card: NormalCard, index: number) => (
           <Card

@@ -1,10 +1,9 @@
-// src/hooks/deck/useDeck.ts
-
 import { useState, useEffect } from "react";
 import { createDeck, shuffleDeck } from "../../utils/deck";
 import { NormalCard } from "../../types/types";
+import { Mark } from "../../enums/enums";
 
-const useDeck = (minMark: number, maxMark: number, includeJokers: boolean) => {
+const useDeckLogic = (minMark: Mark, maxMark: Mark, includeJokers: boolean) => {
   const [deck, setDeck] = useState<NormalCard[]>([]);
   const [flipped, setFlipped] = useState<boolean[]>([]);
 
@@ -45,4 +44,4 @@ const useDeck = (minMark: number, maxMark: number, includeJokers: boolean) => {
   };
 };
 
-export default useDeck;
+export default useDeckLogic;

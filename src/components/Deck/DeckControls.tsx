@@ -1,13 +1,12 @@
-// src/components/Deck/DeckControls.tsx
-
 import React from "react";
+import { Mark } from "../../enums/enums";
 
 interface DeckControlsProps {
-  minMark: number;
-  maxMark: number;
+  minMark: Mark;
+  maxMark: Mark;
   includeJokers: boolean;
-  setMinMark: (value: number) => void;
-  setMaxMark: (value: number) => void;
+  setMinMark: (value: Mark) => void;
+  setMaxMark: (value: Mark) => void;
   setIncludeJokers: (value: boolean) => void;
   handleShuffle: () => void;
   handleFlipAll: () => void;
@@ -27,24 +26,34 @@ const DeckControls: React.FC<DeckControlsProps> = ({
     <div className="mb-4">
       <div className="flex justify-center items-center mb-4">
         <label className="mr-2">Min Mark:</label>
-        <input
-          type="number"
+        <select
           value={minMark}
-          onChange={(e) => setMinMark(Number(e.target.value))}
-          min="1"
-          max="13"
+          onChange={(e) => setMinMark(e.target.value as Mark)}
           className="px-2 py-1 border rounded"
-        />
+        >
+          {Object.values(Mark)
+            .filter((mark) => mark !== Mark.Joker)
+            .map((mark) => (
+              <option key={mark} value={mark}>
+                {mark}
+              </option>
+            ))}
+        </select>
         <label className="ml-4 mr-2">Max Mark:</label>
-        <input
-          type="number"
+        <select
           value={maxMark}
-          onChange={(e) => setMaxMark(Number(e.target.value))}
-          min="1"
-          max="13"
+          onChange={(e) => setMaxMark(e.target.value as Mark)}
           className="px-2 py-1 border rounded"
-        />
-        <label className="ml-4 mr-2">Jokers:</label>
+        >
+          {Object.values(Mark)
+            .filter((mark) => mark !== Mark.Joker)
+            .map((mark) => (
+              <option key={mark} value={mark}>
+                {mark}
+              </option>
+            ))}
+        </select>
+        <label className="ml-4 mr-2">Include Jokers:</label>
         <input
           type="checkbox"
           checked={includeJokers}

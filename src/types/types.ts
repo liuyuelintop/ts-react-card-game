@@ -1,11 +1,8 @@
-// 定义卡牌颜色类型
-export type Color = "♥" | "♠" | "♦" | "♣" | "★";
+import { Color, Mark } from "../enums/enums";
 
-// 定义常规卡牌类型
 export type NormalCard = {
   color: Color;
-  mark: number | "Joker";
+  mark: Mark;
 };
 
-// 定义扑克牌组类型
 export type Deck = NormalCard[];

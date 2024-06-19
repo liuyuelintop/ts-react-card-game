@@ -1,65 +1,58 @@
 import { Deck, NormalCard } from "../types/types";
+import { Color, Mark } from "../enums/enums";
 
 interface CreateDeckOptions {
   includeJokers?: boolean;
-  minMark?: number;
-  maxMark?: number;
+  minMark?: Mark;
+  maxMark?: Mark;
 }
 
-/**
- * 创建一副制定长度的扑克牌
- * @returns {Deck} 返回生成的牌堆
- */
-export const createDeck = (options: CreateDeckOptions = {}): Deck => {
-  const { includeJokers = true, minMark = 1, maxMark = 13 } = options;
-  const deck: Deck = [];
-  // 定义常规牌的颜色，排除Joker
-  const colors: Exclude<NormalCard["color"], "★">[] = ["♥", "♠", "♦", "♣"];
+const markOrder: Mark[] = [
+  Mark.Ace,
+  Mark.Two,
+  Mark.Three,
+  Mark.Four,
+  Mark.Five,
+  Mark.Six,
+  Mark.Seven,
+  Mark.Eight,
+  Mark.Nine,
+  Mark.Ten,
+  Mark.Jack,
+  Mark.Queen,
+  Mark.King,
+];
 
-  // 为每种颜色生成指定数量的牌
-  for (let i = minMark; i <= maxMark; i++) {
+export const createDeck = (options: CreateDeckOptions = {}): Deck => {
+  const {
+    includeJokers = false,
+    minMark = Mark.Ace,
+    maxMark = Mark.King,
+  } = options;
+  const deck: Deck = [];
+  const colors = [Color.Heart, Color.Spade, Color.Club, Color.Diamond];
+
+  const minIndex = markOrder.indexOf(minMark);
+  const maxIndex = markOrder.indexOf(maxMark);
+
+  for (let i = minIndex; i <= maxIndex; i++) {
     for (const color of colors) {
-      deck.push({ color, mark: i });
+      deck.push({ color, mark: markOrder[i] });
     }
   }
-  // 根据option添加Joker牌
+
   if (includeJokers) {
-    deck.push({ color: "★", mark: "Joker" });
-    deck.push({ color: "★", mark: "Joker" });
+    deck.push({ color: Color.Joker, mark: Mark.Joker });
+    deck.push({ color: Color.Joker, mark: Mark.Joker });
   }
 
   return deck;
 };
 
-/**
- * 将点数转换为字符串表示，J、Q、K 和 Joker
- * @param {number | "Joker"} mark - 牌的点数或Joker
- * @returns {string | "Joker"} 返回转换后的字符串表示
- */
-export const markToString = (mark: number | "Joker"): string | "Joker" => {
-  if (mark === "Joker") {
-    return "Joker";
-  }
-
-  switch (mark) {
-    case 1:
-      return "A";
-    case 11:
-      return "J";
-    case 12:
-      return "Q";
-    case 13:
-      return "K";
-    default:
-      return mark.toString();
-  }
+export const markToString = (mark: Mark): string => {
+  return mark;
 };
 
-/**
- * 洗牌功能，使用Fisher-Yates算法打乱牌堆
- * @param {Deck} deck - 要洗的牌堆
- * @returns {Deck} 返回洗乱后的牌堆
- */
 export const shuffleDeck = (deck: Deck): Deck => {
   const shuffledDeck = [...deck];
   for (let i = shuffledDeck.length - 1; i > 0; i--) {

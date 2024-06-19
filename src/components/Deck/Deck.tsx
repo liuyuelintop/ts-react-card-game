@@ -1,15 +1,14 @@
-// src/components/Deck/Deck.tsx
-
 import React, { useState } from "react";
 import Card from "../Card/Card";
 import DeckControls from "./DeckControls";
 import useDeck from "../../hooks/Deck/useDeck";
 import { NormalCard } from "../../types/types";
+import { Mark } from "../../enums/enums";
 import { markToString } from "../../utils/deck";
 
 const Deck: React.FC = () => {
-  const [minMark, setMinMark] = useState<number>(1);
-  const [maxMark, setMaxMark] = useState<number>(13);
+  const [minMark, setMinMark] = useState<Mark>(Mark.Ace);
+  const [maxMark, setMaxMark] = useState<Mark>(Mark.King);
   const [includeJokers, setIncludeJokers] = useState<boolean>(false);
 
   const { deck, flipped, handleShuffle, handleFlipAll, handleFlip } = useDeck(
@@ -36,7 +35,7 @@ const Deck: React.FC = () => {
             key={index}
             card={{
               ...card,
-              mark: markToString(card.mark) as number | "Joker",
+              mark: markToString(card.mark) as Mark,
             }}
             isFlipped={flipped[index]}
             onFlip={() => handleFlip(index)}

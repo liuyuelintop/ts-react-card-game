@@ -9,7 +9,11 @@ const Deck: React.FC = () => {
   const [deck, setDeck] = useState<NormalCard[]>([]);
   const [flipped, setFlipped] = useState<boolean[]>([]);
   useEffect(() => {
-    const newDeck = createDeck();
+    const newDeck = createDeck({
+      includeJokers: false,
+      minMark: 1,
+      maxMark: 13,
+    });
     setDeck(newDeck);
     setFlipped(new Array(newDeck.length).fill(false));
   }, []);

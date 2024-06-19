@@ -334,6 +334,7 @@ body {
 ## ToDo
 
 1. [x] Flip Card
-2. [ ] 动画效果 (optional)
+2. [x] Create a specific length Deck of Cards based on the option
+3. [ ] 动画效果 (optional)
    1. 发牌
    2. 洗牌

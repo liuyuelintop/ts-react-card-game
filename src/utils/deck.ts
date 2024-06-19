@@ -1,24 +1,32 @@
 import { Deck, NormalCard } from "../types/types";
 
+interface CreateDeckOptions {
+  includeJokers?: boolean;
+  minMark?: number;
+  maxMark?: number;
+}
+
 /**
- * 创建一副扑克牌，包括常规牌和两张Joker
+ * 创建一副制定长度的扑克牌
  * @returns {Deck} 返回生成的牌堆
  */
-export const createDeck = (): Deck => {
+export const createDeck = (options: CreateDeckOptions = {}): Deck => {
+  const { includeJokers = true, minMark = 1, maxMark = 13 } = options;
   const deck: Deck = [];
   // 定义常规牌的颜色，排除Joker
   const colors: Exclude<NormalCard["color"], "★">[] = ["♥", "♠", "♦", "♣"];
 
-  // 为每种颜色生成13张牌
-  for (let i = 1; i <= 13; i++) {
+  // 为每种颜色生成指定数量的牌
+  for (let i = minMark; i <= maxMark; i++) {
     for (const color of colors) {
       deck.push({ color, mark: i });
     }
   }
-
-  // 添加两张Joker牌
-  deck.push({ color: "★", mark: "Joker" });
-  deck.push({ color: "★", mark: "Joker" });
+  // 根据option添加Joker牌
+  if (includeJokers) {
+    deck.push({ color: "★", mark: "Joker" });
+    deck.push({ color: "★", mark: "Joker" });
+  }
 
   return deck;
 };

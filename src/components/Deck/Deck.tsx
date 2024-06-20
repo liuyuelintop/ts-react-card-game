@@ -4,7 +4,6 @@ import DeckControls from "./DeckControls";
 import useDeck from "../../hooks/Deck/useDeck";
 import { NormalCard } from "../../types/types";
 import { Mark } from "../../enums/enums";
-import { markToString } from "../../utils/deck";
 
 const Deck: React.FC = () => {
   const [minMark, setMinMark] = useState<Mark>(Mark.Ace);
@@ -35,7 +34,7 @@ const Deck: React.FC = () => {
             key={index}
             card={{
               ...card,
-              mark: markToString(card.mark) as Mark,
+              mark: card.mark,
             }}
             isFlipped={flipped[index]}
             onFlip={() => handleFlip(index)}

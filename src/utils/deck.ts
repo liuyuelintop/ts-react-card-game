@@ -1,4 +1,4 @@
-import { Deck, NormalCard } from "../types/types";
+import { Deck } from "../types/types";
 import { Color, Mark } from "../enums/enums";
 
 interface CreateDeckOptions {
@@ -47,10 +47,6 @@ export const createDeck = (options: CreateDeckOptions = {}): Deck => {
   }
 
   return deck;
-};
-
-export const markToString = (mark: Mark): string => {
-  return mark;
 };
 
 export const shuffleDeck = (deck: Deck): Deck => {

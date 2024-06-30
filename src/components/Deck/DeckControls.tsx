@@ -5,9 +5,13 @@ interface DeckControlsProps {
   minMark: Mark;
   maxMark: Mark;
   includeJokers: boolean;
+  playerCount: number;
+  cardsPerPlayer: number;
   setMinMark: (value: Mark) => void;
   setMaxMark: (value: Mark) => void;
   setIncludeJokers: (value: boolean) => void;
+  setPlayerCount: (value: number) => void;
+  setCardsPerPlayer: (value: number) => void;
   handleShuffle: () => void;
   handleFlipAll: () => void;
 }
@@ -16,9 +20,13 @@ const DeckControls: React.FC<DeckControlsProps> = ({
   minMark,
   maxMark,
   includeJokers,
+  playerCount,
+  cardsPerPlayer,
   setMinMark,
   setMaxMark,
   setIncludeJokers,
+  setPlayerCount,
+  setCardsPerPlayer,
   handleShuffle,
   handleFlipAll,
 }) => {
@@ -59,6 +67,22 @@ const DeckControls: React.FC<DeckControlsProps> = ({
           checked={includeJokers}
           onChange={(e) => setIncludeJokers(e.target.checked)}
           className="ml-2"
+        />
+        <label className="ml-4 mr-2">Player Count:</label>
+        <input
+          type="number"
+          value={playerCount}
+          onChange={(e) => setPlayerCount(Number(e.target.value))}
+          min="1"
+          className="px-2 py-1 border rounded"
+        />
+        <label className="ml-4 mr-2">Cards Per Player:</label>
+        <input
+          type="number"
+          value={cardsPerPlayer}
+          onChange={(e) => setCardsPerPlayer(Number(e.target.value))}
+          min="1"
+          className="px-2 py-1 border rounded"
         />
       </div>
       <div>

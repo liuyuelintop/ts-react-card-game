@@ -6,3 +6,9 @@ export type NormalCard = {
 };
 
 export type Deck = NormalCard[];
+
+export type Player = {
+  id: number;
+  name: string;
+  hand: NormalCard[];
+};

@@ -1,4 +1,4 @@
-import { Deck } from "../types/types";
+import { Deck, Player } from "../types/types";
 import { Color, Mark } from "../enums/enums";
 
 interface CreateDeckOptions {
@@ -56,4 +56,29 @@ export const shuffleDeck = (deck: Deck): Deck => {
     [shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]];
   }
   return shuffledDeck;
+};
+
+export const dealCards = (
+  deck: Deck,
+  playerCount: number,
+  cardsPerPlayer: number
+): Player[] => {
+  const players: Player[] = [];
+  const shuffledDeck = shuffleDeck(deck);
+  let cardIndex = 0;
+
+  for (let i = 0; i < playerCount; i++) {
+    players.push({ id: i + 1, name: `Player ${i + 1}`, hand: [] });
+  }
+
+  for (let i = 0; i < cardsPerPlayer; i++) {
+    for (let j = 0; j < playerCount; j++) {
+      if (cardIndex < shuffledDeck.length) {
+        players[j].hand.push(shuffledDeck[cardIndex]);
+        cardIndex++;
+      }
+    }
+  }
+
+  return players;
 };

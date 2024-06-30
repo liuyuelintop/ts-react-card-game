@@ -26,7 +26,7 @@ const DeckControls: React.FC<DeckControlsProps> = ({
 }) => {
   return (
     <div className="max-w-screen-md mx-auto p-8 bg-gray-800 text-white rounded-lg shadow-lg flex flex-col space-y-6">
-      <div className="flex flex-wrap justify-between space-y-4 sm:space-y-0">
+      <div className="flex flex-wrap justify-between gap-y-4">
         <div className="flex-1 min-w-[200px] mr-4">
           <SelectControl
             label="Min Mark"
@@ -44,7 +44,7 @@ const DeckControls: React.FC<DeckControlsProps> = ({
           />
         </div>
       </div>
-      <div className="flex flex-wrap justify-between items-center space-y-4 sm:space-y-0">
+      <div className="flex flex-wrap justify-between items-center gap-y-4">
         <CheckboxControl
           label="Include Jokers"
           checked={includeJokers}

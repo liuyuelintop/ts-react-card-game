@@ -1,15 +1,29 @@
-// src/App.tsx
-
 import React from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Deck from "./components/Deck/Deck";
-import "./styles/App.css";
+import DealPage from "./components/DealPage/DealPage";
 
 const App: React.FC = () => {
   return (
-    <div className="text-center p-4 bg-gray-100 min-h-screen">
-      <h1 className="text-4xl font-bold mb-6">Card Deck</h1>
-      <Deck />
-    </div>
+    <Router>
+      <div>
+        <nav>
+          <ul className="flex space-x-4 p-4 bg-gray-800 text-white">
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/deal">Deal Cards</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={<Deck />} />
+          <Route path="/deal" element={<DealPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 

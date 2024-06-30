@@ -5,13 +5,13 @@ interface DeckControlsProps {
   minMark: Mark;
   maxMark: Mark;
   includeJokers: boolean;
-  playerCount: number;
-  cardsPerPlayer: number;
+  playerCount?: number;
+  cardsPerPlayer?: number;
   setMinMark: (value: Mark) => void;
   setMaxMark: (value: Mark) => void;
   setIncludeJokers: (value: boolean) => void;
-  setPlayerCount: (value: number) => void;
-  setCardsPerPlayer: (value: number) => void;
+  setPlayerCount?: (value: number) => void;
+  setCardsPerPlayer?: (value: number) => void;
   handleShuffle: () => void;
   handleFlipAll: () => void;
 }
@@ -31,13 +31,13 @@ const DeckControls: React.FC<DeckControlsProps> = ({
   handleFlipAll,
 }) => {
   return (
-    <div className="mb-4">
-      <div className="flex justify-center items-center mb-4">
-        <label className="mr-2">Min Mark:</label>
+    <div className="max-w-screen-lg mx-auto p-4 bg-gray-800 text-white rounded-lg shadow-lg flex flex-col space-y-4">
+      <div className="flex items-center space-x-4">
+        <label className="text-lg">Min Mark:</label>
         <select
           value={minMark}
           onChange={(e) => setMinMark(e.target.value as Mark)}
-          className="px-2 py-1 border rounded"
+          className="px-3 py-2 border rounded-lg bg-gray-700 text-white"
         >
           {Object.values(Mark)
             .filter((mark) => mark !== Mark.Joker)
@@ -47,11 +47,14 @@ const DeckControls: React.FC<DeckControlsProps> = ({
               </option>
             ))}
         </select>
-        <label className="ml-4 mr-2">Max Mark:</label>
+      </div>
+
+      <div className="flex items-center space-x-4">
+        <label className="text-lg">Max Mark:</label>
         <select
           value={maxMark}
           onChange={(e) => setMaxMark(e.target.value as Mark)}
-          className="px-2 py-1 border rounded"
+          className="px-3 py-2 border rounded-lg bg-gray-700 text-white"
         >
           {Object.values(Mark)
             .filter((mark) => mark !== Mark.Joker)
@@ -61,40 +64,54 @@ const DeckControls: React.FC<DeckControlsProps> = ({
               </option>
             ))}
         </select>
-        <label className="ml-4 mr-2">Include Jokers:</label>
+      </div>
+
+      <div className="flex items-center space-x-4">
+        <label className="text-lg">Include Jokers:</label>
         <input
           type="checkbox"
           checked={includeJokers}
           onChange={(e) => setIncludeJokers(e.target.checked)}
-          className="ml-2"
-        />
-        <label className="ml-4 mr-2">Player Count:</label>
-        <input
-          type="number"
-          value={playerCount}
-          onChange={(e) => setPlayerCount(Number(e.target.value))}
-          min="1"
-          className="px-2 py-1 border rounded"
-        />
-        <label className="ml-4 mr-2">Cards Per Player:</label>
-        <input
-          type="number"
-          value={cardsPerPlayer}
-          onChange={(e) => setCardsPerPlayer(Number(e.target.value))}
-          min="1"
-          className="px-2 py-1 border rounded"
+          className="ml-2 h-6 w-6 rounded-lg bg-gray-700 text-white"
         />
       </div>
-      <div>
+
+      {setPlayerCount && setCardsPerPlayer && (
+        <>
+          <div className="flex items-center space-x-4">
+            <label className="text-lg">Player Count:</label>
+            <input
+              type="number"
+              value={playerCount}
+              onChange={(e) => setPlayerCount(Number(e.target.value))}
+              min="1"
+              className="px-3 py-2 border rounded-lg bg-gray-700 text-white"
+            />
+          </div>
+
+          <div className="flex items-center space-x-4">
+            <label className="text-lg">Cards Per Player:</label>
+            <input
+              type="number"
+              value={cardsPerPlayer}
+              onChange={(e) => setCardsPerPlayer(Number(e.target.value))}
+              min="1"
+              className="px-3 py-2 border rounded-lg bg-gray-700 text-white"
+            />
+          </div>
+        </>
+      )}
+
+      <div className="flex items-center space-x-4">
         <button
           onClick={handleShuffle}
-          className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition"
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition"
         >
           Shuffle Deck
         </button>
         <button
           onClick={handleFlipAll}
-          className="mb-4 ml-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-700 transition"
+          className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-700 transition"
         >
           Flip All
         </button>

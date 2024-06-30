@@ -1,21 +1,13 @@
 import { useState, useEffect } from "react";
-import { createDeck, shuffleDeck, dealCards } from "../../utils/deck";
-import { NormalCard, Player } from "../../types/types";
+import { createDeck, shuffleDeck } from "../../utils/deck";
+import { NormalCard } from "../../types/types";
 import { Mark } from "../../enums/enums";
 
 // 自定义 Hook，用于管理扑克牌堆和卡片翻转状态
-const useDeck = (
-  minMark: Mark,
-  maxMark: Mark,
-  includeJokers: boolean,
-  playerCount: number,
-  cardsPerPlayer: number
-) => {
+const useDeck = (minMark: Mark, maxMark: Mark, includeJokers: boolean) => {
   // 状态：deck 表示当前的扑克牌堆，flipped 表示每张卡片的翻转状态
   const [deck, setDeck] = useState<NormalCard[]>([]);
   const [flipped, setFlipped] = useState<boolean[]>([]);
-  const [players, setPlayers] = useState<Player[]>([]);
-  const [playerFlips, setPlayerFlips] = useState<boolean[][]>([]);
 
   // 使用 useEffect 在组件挂载时生成新的牌堆，并初始化翻转状态
   useEffect(() => {
@@ -30,8 +22,9 @@ const useDeck = (
 
   // 洗牌函数，重新排列牌堆，并重置翻转状态
   const handleShuffle = () => {
-    setDeck((prevDeck) => shuffleDeck(prevDeck)); // 洗牌
-    setFlipped(new Array(deck.length).fill(false)); // 重置所有卡片为未翻转状态
+    const shuffledDeck = shuffleDeck(deck);
+    setDeck(shuffledDeck);
+    setFlipped(new Array(shuffledDeck.length).fill(false));
   };
 
   // 翻转所有卡片状态的函数
@@ -49,35 +42,12 @@ const useDeck = (
     });
   };
 
-  // 翻转单张玩家卡片状态的函数
-  const handlePlayerFlip = (playerIndex: number, cardIndex: number) => {
-    setPlayerFlips((prevPlayerFlips) => {
-      const newPlayerFlips = [...prevPlayerFlips];
-      newPlayerFlips[playerIndex] = [...newPlayerFlips[playerIndex]];
-      newPlayerFlips[playerIndex][cardIndex] =
-        !newPlayerFlips[playerIndex][cardIndex];
-      return newPlayerFlips;
-    });
-  };
-
-  const handleDealCards = () => {
-    const dealtPlayers = dealCards(deck, playerCount, cardsPerPlayer);
-    setPlayers(dealtPlayers);
-    setPlayerFlips(
-      dealtPlayers.map((player) => new Array(player.hand.length).fill(false))
-    );
-  };
-
   return {
     deck,
     flipped,
-    players,
-    playerFlips,
     handleShuffle,
     handleFlipAll,
     handleFlip,
-    handlePlayerFlip,
-    handleDealCards,
   };
 };
 

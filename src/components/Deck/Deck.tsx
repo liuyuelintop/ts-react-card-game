@@ -28,7 +28,7 @@ const Deck: React.FC = () => {
         handleShuffle={handleShuffle}
         handleFlipAll={handleFlipAll}
       />
-      <div className="max-w-screen-lg mx-auto mt-8 flex flex-wrap justify-center gap-2">
+      <div className="mt-8 flex flex-wrap justify-center gap-2">
         {deck.map((card: NormalCard, index: number) => (
           <Card
             key={index}

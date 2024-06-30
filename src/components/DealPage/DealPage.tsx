@@ -38,11 +38,11 @@ const DealPage: React.FC = () => {
         handleFlipAll={handleFlipAllPlayers}
         handleDealCards={handleDealCards}
       />
-      <div className="mt-8 grid grid-cols-1 gap-4">
+      <div className="mt-8 flex flex-wrap justify-center gap-4">
         {players.map((player, playerIndex) => (
-          <div key={player.id} className="mb-4">
-            <h3 className="text-lg font-bold mb-2">{player.name}</h3>
-            <div className="flex justify-center gap-2">
+          <div key={player.id} className="mb-4 ">
+            <h3 className="text-lg text-white font-bold mb-2">{player.name}</h3>
+            <div className="flex flex-wrap justify-center gap-2">
               {player.hand.map((card, cardIndex) => (
                 <Card
                   key={`${player.id}-${cardIndex}`}
@@ -51,6 +51,7 @@ const DealPage: React.FC = () => {
                     (playerFlips as boolean[][])[playerIndex][cardIndex]
                   }
                   onFlip={() => handlePlayerFlip(playerIndex, cardIndex)}
+                  className="hover:scale-110 "
                 />
               ))}
             </div>

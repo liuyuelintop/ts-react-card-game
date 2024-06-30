@@ -336,7 +336,10 @@ body {
 1. [x] Flip Card
 2. [x] Create a specific length Deck of Cards based on the option
 3. [x] Use Enums to refactor codebase for card colors and marks
-4. [ ] 动画效果 (optional)
+4. [x] Add player functionalities and deal cards
+   1. Implement dealing cards to players
+   2. Allow each player to flip their own cards
+5. [ ] 动画效果 (optional)
    1. 发牌
    2. 洗牌
 

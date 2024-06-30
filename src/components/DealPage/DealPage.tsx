@@ -41,13 +41,15 @@ const DealPage: React.FC = () => {
       <div className="mt-8 grid grid-cols-1 gap-4">
         {players.map((player, playerIndex) => (
           <div key={player.id} className="mb-4">
-            <h3 className="text-lg text-white font-bold mb-2">{player.name}</h3>
+            <h3 className="text-lg font-bold mb-2">{player.name}</h3>
             <div className="flex justify-center gap-2">
               {player.hand.map((card, cardIndex) => (
                 <Card
                   key={`${player.id}-${cardIndex}`}
                   card={card}
-                  isFlipped={playerFlips[playerIndex][cardIndex]}
+                  isFlipped={
+                    (playerFlips as boolean[][])[playerIndex][cardIndex]
+                  }
                   onFlip={() => handlePlayerFlip(playerIndex, cardIndex)}
                 />
               ))}

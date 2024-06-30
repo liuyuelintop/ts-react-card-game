@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Card from "../Card/Card";
 import DeckControls from "./DeckControls";
 import useDeck from "../../hooks/Deck/useDeck";
-import { NormalCard } from "../../types/types";
 import { Mark } from "../../enums/enums";
 
 const Deck: React.FC = () => {
@@ -28,12 +27,12 @@ const Deck: React.FC = () => {
         handleShuffle={handleShuffle}
         handleFlipAll={handleFlipAll}
       />
-      <div className="mt-8 flex flex-wrap justify-center gap-2">
-        {deck.map((card: NormalCard, index: number) => (
+      <div className="mt-8 flex flex-wrap justify-center gap-4">
+        {deck.map((card, index) => (
           <Card
             key={index}
             card={card}
-            isFlipped={flipped[index]}
+            isFlipped={(flipped as boolean[])[index]}
             onFlip={() => handleFlip(index)}
           />
         ))}

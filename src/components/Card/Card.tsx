@@ -6,14 +6,15 @@ interface CardProps {
   card: NormalCard;
   isFlipped: boolean;
   onFlip: () => void;
+  className?: string; // 添加 className 属性
 }
 
-const Card: React.FC<CardProps> = ({ card, isFlipped, onFlip }) => {
+const Card: React.FC<CardProps> = ({ card, isFlipped, onFlip, className }) => {
   return (
     <div
       className={`relative border rounded-lg w-20 h-28 flex flex-col justify-center items-center m-2 shadow-lg transform hover:scale-105 transition duration-300 cursor-pointer ${
         isFlipped ? "bg-white" : "bg-gradient-to-r from-blue-400 to-purple-500"
-      }`}
+      } ${className}`}
       onClick={onFlip}
     >
       {isFlipped ? (

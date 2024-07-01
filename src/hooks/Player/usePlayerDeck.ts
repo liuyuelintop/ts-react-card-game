@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { NormalCard, Player } from "../../types/types";
+import { Card, Player } from "../../types/types";
 import { dealCards } from "../../utils/deck";
 import useFlip from "../useFlip";
 
 const usePlayerDeck = (
-  deck: NormalCard[],
+  deck: Card[],
   playerCount: number,
   cardsPerPlayer: number
 ) => {

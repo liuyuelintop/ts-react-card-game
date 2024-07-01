@@ -1,14 +1,21 @@
 import { Color, Mark } from "../enums/enums";
 
-export type NormalCard = {
+export type Card = NormalCard | Joker;
+
+type NormalCard = {
   color: Color;
   mark: Mark;
 };
 
-export type Deck = NormalCard[];
+type Joker = {
+  color: "★";
+  mark: "joker" | "Joker";
+};
+
+export type Deck = Card[];
 
 export type Player = {
   id: number;
   name: string;
-  hand: NormalCard[];
+  hand: Card[];
 };

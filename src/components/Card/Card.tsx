@@ -1,15 +1,17 @@
 import React from "react";
-import { NormalCard } from "../../types/types";
+import { Card as PokerCard } from "../../types/types";
 import { Color } from "../../enums/enums";
 
 interface CardProps {
-  card: NormalCard;
+  card: PokerCard;
   isFlipped: boolean;
   onFlip: () => void;
   className?: string; // 添加 className 属性
 }
 
 const Card: React.FC<CardProps> = ({ card, isFlipped, onFlip, className }) => {
+  const isJoker = card.color === "★" && card.mark === "Joker";
+
   return (
     <div
       className={`relative border rounded-lg w-20 h-28 flex flex-col justify-center items-center m-2 shadow-lg transform hover:scale-105 transition duration-300 cursor-pointer ${
@@ -23,7 +25,7 @@ const Card: React.FC<CardProps> = ({ card, isFlipped, onFlip, className }) => {
             className={`${
               card.color === Color.Heart ||
               card.color === Color.Diamond ||
-              card.color === Color.Joker
+              isJoker
                 ? "text-red-500"
                 : "text-black"
             } ${card.color === Color.Joker ? "text-xl" : "text-3xl"}`}

@@ -42,8 +42,8 @@ export const createDeck = (options: CreateDeckOptions = {}): Deck => {
   }
 
   if (includeJokers) {
-    deck.push({ color: Color.Joker, mark: Mark.Joker });
-    deck.push({ color: Color.Joker, mark: Mark.Joker });
+    deck.push({ color: Color.Joker, mark: "joker" });
+    deck.push({ color: Color.Joker, mark: "Joker" });
   }
 
   return deck;

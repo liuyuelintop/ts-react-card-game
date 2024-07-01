@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { createDeck, shuffleDeck } from "../../utils/deck";
-import { NormalCard } from "../../types/types";
+import { Card } from "../../types/types";
 import { Mark } from "../../enums/enums";
 import useFlip from "../useFlip";
 
 const useDeck = (minMark: Mark, maxMark: Mark, includeJokers: boolean) => {
-  const [deck, setDeck] = useState<NormalCard[]>([]);
+  const [deck, setDeck] = useState<Card[]>([]);
   const { flipped, handleFlipAll, handleFlip, setFlipped } = useFlip(
     deck.length
   );
